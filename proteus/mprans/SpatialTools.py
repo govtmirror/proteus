@@ -2217,6 +2217,13 @@ def assembleAuxiliaryVariables(domain):
             # update the indice for force/moment calculations
             body.i_start = start_flag+1
             body.i_end = start_flag+1+len(shape.BC_list)
+        if 'ChRigidBody' in shape.auxiliaryVariables.keys():
+            body = shape.auxiliaryVariables['ChRigidBody']
+            aux['twp'] += [body]
+            for boundcond in shape.BC_list:
+                boundcond.setRigidBodyMoveMesh(body)
+            body.i_start = start_flag+1
+            body.i_end = start_flag+1+len(shape.BC_list)
         # ----------------------------
         # ABSORPTION/GENERATION ZONES
         if 'RelaxZones' in shape.auxiliaryVariables.keys():
