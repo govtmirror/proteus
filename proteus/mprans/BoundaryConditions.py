@@ -184,6 +184,10 @@ class BC_RANS(BC_Base):
         self.dissipation_diffusive.setConstantBC(0.)
 
 
+    def setChMoveMesh(self, body):
+        self.hx_dirichlet.uOfXT = lambda x, t: body.hx(x, t)
+        self.hy_dirichlet.uOfXT = lambda x, t: body.hy(x, t)
+        self.hz_dirichlet.uOfXT = lambda x, t: body.hz(x, t)
 
     def setMoveMesh(self, last_pos, h=(0., 0., 0.), rot_matrix=None):
         """
